@@ -78,7 +78,7 @@ export default function Home() {
                 <span className="text-yellow-600 font-bold font-heading">3</span>
               </div>
               <h4 className="font-heading font-semibold mb-2 text-gray-900">Smart Contract Calculates</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">The blockchain automatically calculates each person's share</p>
+              <p className="text-sm text-gray-600 leading-relaxed">The blockchain automatically calculates each person&apos;s share</p>
             </div>
             <div className="text-center">
               <div className="bg-purple-100 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">

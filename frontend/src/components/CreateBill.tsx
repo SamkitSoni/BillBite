@@ -38,7 +38,7 @@ export default function CreateBill() {
               setCreatedBillId(billId);
               break;
             }
-          } catch (error) {
+          } catch {
             // Skip logs that don't match our ABI
             continue;
           }

@@ -65,18 +65,48 @@ export function useBillBite() {
     const { data: currentBillId } = useCurrentBillId();
     const billCount = currentBillId ? Number(currentBillId) : 0;
     
+    // Create a fixed array of bill data queries based on max possible bills
+    // This ensures hooks are called in the same order every time
+    const maxBills = 100; // Set a reasonable maximum
     const billQueries = [];
-    for (let i = 0; i < billCount; i++) {
+    
+    for (let i = 0; i < maxBills; i++) {
+      const shouldFetch = i < billCount;
       billQueries.push({
         billId: i,
-        detail: useGetBillDetail(i),
-        cost: useGetBillCost(i),
-        restaurant: useGetBillRestaurant(i),
+        detail: useReadContract({
+          address: CONTRACT_ADDRESS,
+          abi: BILLBITE_ABI,
+          functionName: 'getBillDetail',
+          args: [BigInt(i)],
+          query: {
+            enabled: !!CONTRACT_ADDRESS && shouldFetch,
+          },
+        }),
+        cost: useReadContract({
+          address: CONTRACT_ADDRESS,
+          abi: BILLBITE_ABI,
+          functionName: 'getBillCost',
+          args: [BigInt(i)],
+          query: {
+            enabled: !!CONTRACT_ADDRESS && shouldFetch,
+          },
+        }),
+        restaurant: useReadContract({
+          address: CONTRACT_ADDRESS,
+          abi: BILLBITE_ABI,
+          functionName: 'billRestaurant',
+          args: [BigInt(i)],
+          query: {
+            enabled: !!CONTRACT_ADDRESS && shouldFetch,
+          },
+        }),
       });
     }
     
+    // Only return the bills that actually exist
     return {
-      data: billQueries,
+      data: billQueries.slice(0, billCount),
       totalBills: billCount,
     };
   };

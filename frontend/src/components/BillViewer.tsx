@@ -147,8 +147,6 @@ export default function BillViewer() {
     useGetBillCost, 
     useGetBillRestaurant,
     useCurrentBillId,
-    useGetAllBills,
-    useBillPaymentStatus,
     selectMenu,
     payBill,
     isPending,
