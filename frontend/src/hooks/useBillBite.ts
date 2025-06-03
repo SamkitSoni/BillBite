@@ -61,7 +61,7 @@ export function useBillBite() {
   };
 
   // Get the current bill ID for pagination/filtering
-  const getCurrentBillId = () => {
+  const useGetCurrentBillId = () => {
     const { data: currentBillId } = useCurrentBillId();
     return currentBillId ? Number(currentBillId) : 0;
   };
@@ -138,7 +138,7 @@ export function useBillBite() {
     useGetBillCost,
     useGetBillRestaurant,
     useCurrentBillId,
-    getCurrentBillId,
+    useGetCurrentBillId,
     useBillPaymentStatus,
     
     // Write functions
