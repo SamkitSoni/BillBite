@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "frontend/splitly"
+    },
+    {
+      "path": "frontend/restuarant"
+    },
+    {
+      "name": "smart-contract",
+      "path": "backend/splitly"
+    }
+  ],
+  "settings": {
+    "solidity.compileUsingRemoteVersion": "v0.8.21+commit.d9974bed"
+  }
+}
