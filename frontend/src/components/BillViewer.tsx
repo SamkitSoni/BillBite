@@ -16,10 +16,38 @@ const formatAddress = (address: string) => {
 
 // Component to display all bills
 function AllBillsSection() {
-  const { useGetAllBills } = useBillBite();
+  const { 
+    useGetBillDetail, 
+    useGetBillCost, 
+    useGetBillRestaurant,
+    useCurrentBillId 
+  } = useBillBite();
   const { authenticated } = usePrivy();
   const { address } = useAccount();
-  const { data: allBillsData, totalBills } = useGetAllBills();
+  const { data: currentBillId } = useCurrentBillId();
+  
+  const totalBills = currentBillId ? Number(currentBillId) : 0;
+
+  // Fixed hook calls for the last 5 bills (avoiding hooks in loops)
+  const bill0Detail = useGetBillDetail(Math.max(0, totalBills - 1));
+  const bill0Cost = useGetBillCost(Math.max(0, totalBills - 1));
+  const bill0Restaurant = useGetBillRestaurant(Math.max(0, totalBills - 1));
+  
+  const bill1Detail = useGetBillDetail(Math.max(0, totalBills - 2));
+  const bill1Cost = useGetBillCost(Math.max(0, totalBills - 2));
+  const bill1Restaurant = useGetBillRestaurant(Math.max(0, totalBills - 2));
+  
+  const bill2Detail = useGetBillDetail(Math.max(0, totalBills - 3));
+  const bill2Cost = useGetBillCost(Math.max(0, totalBills - 3));
+  const bill2Restaurant = useGetBillRestaurant(Math.max(0, totalBills - 3));
+  
+  const bill3Detail = useGetBillDetail(Math.max(0, totalBills - 4));
+  const bill3Cost = useGetBillCost(Math.max(0, totalBills - 4));
+  const bill3Restaurant = useGetBillRestaurant(Math.max(0, totalBills - 4));
+  
+  const bill4Detail = useGetBillDetail(Math.max(0, totalBills - 5));
+  const bill4Cost = useGetBillCost(Math.max(0, totalBills - 5));
+  const bill4Restaurant = useGetBillRestaurant(Math.max(0, totalBills - 5));
 
   if (!authenticated) {
     return null;
@@ -34,6 +62,54 @@ function AllBillsSection() {
     );
   }
 
+  // Create bill data structure for bills that exist
+  const allBillsData = [];
+  
+  if (totalBills >= 1) {
+    allBillsData.push({
+      billId: totalBills - 1,
+      detail: bill0Detail,
+      cost: bill0Cost,
+      restaurant: bill0Restaurant,
+    });
+  }
+  
+  if (totalBills >= 2) {
+    allBillsData.push({
+      billId: totalBills - 2,
+      detail: bill1Detail,
+      cost: bill1Cost,
+      restaurant: bill1Restaurant,
+    });
+  }
+  
+  if (totalBills >= 3) {
+    allBillsData.push({
+      billId: totalBills - 3,
+      detail: bill2Detail,
+      cost: bill2Cost,
+      restaurant: bill2Restaurant,
+    });
+  }
+  
+  if (totalBills >= 4) {
+    allBillsData.push({
+      billId: totalBills - 4,
+      detail: bill3Detail,
+      cost: bill3Cost,
+      restaurant: bill3Restaurant,
+    });
+  }
+  
+  if (totalBills >= 5) {
+    allBillsData.push({
+      billId: totalBills - 5,
+      detail: bill4Detail,
+      cost: bill4Cost,
+      restaurant: bill4Restaurant,
+    });
+  }
+
   // Filter out fully paid bills (where all menus are owned)
   const activeBills = allBillsData.filter(bill => {
     const { data: billDetail } = bill.detail;
@@ -45,9 +121,9 @@ function AllBillsSection() {
 
   return (
     <div className="bg-gray-50 rounded-lg p-6 mb-6">
-      <h3 className="text-xl font-heading font-semibold text-gray-900 mb-4">All Active Bills</h3>
+      <h3 className="text-xl font-heading font-semibold text-gray-900 mb-4">Recent Active Bills</h3>
       <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-        Showing {activeBills.length} active bills out of {totalBills} total bills created.
+        Showing {activeBills.length} active bills from the last {Math.min(5, totalBills)} bills created.
         Paid bills are automatically removed from this list.
       </p>
       
