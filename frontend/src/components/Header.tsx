@@ -4,7 +4,7 @@ import { usePrivy } from '@privy-io/react-auth';
 import { useAccount } from 'wagmi';
 
 export default function Header() {
-  const { login, logout, authenticated, user } = usePrivy();
+  const { login, logout, authenticated } = usePrivy();
   const { address } = useAccount();
 
   return (

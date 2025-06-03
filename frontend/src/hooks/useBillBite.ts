@@ -1,8 +1,8 @@
 'use client';
 
 import { useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { BILLBITE_ABI, CONTRACT_ADDRESS, type Menu, type Bill } from '../lib/contract';
-import { formatEther, parseEther } from 'viem';
+import { BILLBITE_ABI, CONTRACT_ADDRESS } from '../lib/contract';
+import { parseEther } from 'viem';
 
 export function useBillBite() {
   const { writeContract, data: hash, isPending } = useWriteContract();
