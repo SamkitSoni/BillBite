@@ -73,14 +73,6 @@ The frontend interacts with the BillBite smart contract deployed at:
 - **Network**: Sepolia Testnet
 - **Chain ID**: 11155111
 
-## Key Components
-
-- `CreateBill.tsx`: Restaurant interface for creating new bills
-- `BillViewer.tsx`: Customer interface for viewing and interacting with bills
-- `Header.tsx`: Navigation with wallet connection
-- `Providers.tsx`: Web3 and Privy provider setup
-- `useBillBite.ts`: Custom hook for smart contract interactions
-
 ## Development
 
 ```bash
